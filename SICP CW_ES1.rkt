@@ -17,7 +17,7 @@
 ;You can download the data from https://drive.google.com/file/d/1DnALRODNzKvlkJQ8jE4xCwMmfHAqI19u/view?usp=sharing
 (define tweet-sentiments(with-input-from-file "D:/MSc Computer Science/SICP/CW/End-of_Sem Project/uganda_tweets/jan_feb_Ugandatweets2022.json" ; invalid JSON
     (λ () (read-json))))
-tweet-sentiments
+;tweet-sentiments
 
 ;Making csv reader
 (define make-tweet-csv-reader
@@ -30,16 +30,16 @@ tweet-sentiments
 ;then a “one-shot” reader constructor is constructed with that spec and used
 (define next-row
   (make-csv-reader
-   (open-input-file "D:/MSc Computer Science/SICP/CW/End-of_Sem Project/uganda_tweets/Uganda_sampletweets.csv")
+   (open-input-file "D:/MSc Computer Science/np.csv")
    '((separator-chars            #\|)
      (strip-leading-whitespace?  . #t)
      (strip-trailing-whitespace? . #t))))
 
 ;reading csv using the with-input-from-file
 ;convert csv to list
-(define tweets (with-input-from-file "D:/MSc Computer Science/SICP/CW/End-of_Sem Project/uganda_tweets/Uganda_sampletweets.csv"
+(define tweets (with-input-from-file "D:/MSc Computer Science/np.csv"
 	 (λ () (csv->list (current-input-port)))))
-(first tweets)
+;tweets
 
 ;(csv->list (make-csv-reader (open-input-string tweets)))
 
@@ -56,8 +56,9 @@ tweet-sentiments
     #:exists 'replace)) 
 
 (define tweet-filter
-  (let ([tmp (map (λ (x) (list (list-ref x 9)))tweets)])
+  (let ([tmp (map (λ (x) (list (list-ref x 4)))tweets)])
     (filter (λ (x) (not (string-prefix? (first x) "RT"))) tmp))) 
+;tweet-filter
 
 ;flatten data
 (define save-data (flatten tweet-filter)) 
@@ -80,7 +81,9 @@ tweet-sentiments
 
 (define sentiment (list->sentiment words #:lexicon 'nrc))
 
-(aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq))
+;sentiment
+
+(aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq)) 
 
 (let ([counts (aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq))])
   (parameterize ((plot-width 800))
