@@ -30,14 +30,14 @@
 ;then a “one-shot” reader constructor is constructed with that spec and used
 (define next-row
   (make-csv-reader
-   (open-input-file "D:/MSc Computer Science/np.csv")
+   (open-input-file "D:/MSc Computer Science/uganda_tweets.csv")
    '((separator-chars            #\|)
      (strip-leading-whitespace?  . #t)
      (strip-trailing-whitespace? . #t))))
 
 ;reading csv using the with-input-from-file
 ;convert csv to list
-(define tweets (with-input-from-file "D:/MSc Computer Science/np.csv"
+(define tweets (with-input-from-file "D:/MSc Computer Science/uganda_tweets.csv"
 	 (λ () (csv->list (current-input-port)))))
 ;tweets
 
